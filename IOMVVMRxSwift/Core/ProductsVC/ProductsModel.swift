@@ -22,6 +22,16 @@ extension SectionOfProducts: SectionModelType {
     }
 }
 
+class ProductsRequest: APIRequest {
+    var method = RequestType.GET
+    var path = APIConstants.requestProducts.rawValue
+    var parameters = [String: String]()
+    
+    init(name: String) {    
+        parameters["name"] = name
+    }
+}
+
 struct ProductsRQM: Codable {
     var categoryId : Int?
     var subCategoryId : Int?

@@ -30,8 +30,8 @@ class ProductsViewModel: ViewModelProtocol {
         
         input = Input(likedProduct: likedProductSubject.asObserver(), loadAfterTrigger: loadAfterTriggerSubject.asObserver())
         
-        let products = interactor.getProducts()
-            .asDriver(onErrorJustReturn: [])
+        var products = interactor.getProducts()
+        
 
         likedProductSubject.subscribe ({ (event) in
             print("\(String(describing: event.element?.productName))")
@@ -39,10 +39,15 @@ class ProductsViewModel: ViewModelProtocol {
         
         loadAfterTriggerSubject.subscribe ({ (event) in
             print("Get next Products")
+            let newProducts = interactor.getNextProducts()
+            products = Observable.concat([products, newProducts]).scan([], accumulator: +)
         })
         .disposed(by: disposeBag)
-        
-        output = Output(products: products)
+//        let newObserver = Observable.just(dataToPrepend)
+//        items = Observable.combineLatest(items, newObserver) {
+//            $1+$0
+//        }
+        output = Output(products: products.asDriver(onErrorJustReturn: []))
     }
 }
 

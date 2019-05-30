@@ -55,10 +55,9 @@ class ProductsVC: UIViewController, ControllerType {
         // Binding reachedBottom trigger with viewModel's input for pagination of products
         tableViewProducts.rx.reachedBottom.asObservable()
         .bind(to: viewModel.input.loadAfterTrigger)
-//        .subscribe(viewModel.input.loadAfterTrigger)
         .disposed(by: disposeBag)
         
-        // Bin
+        // Binding outp
         viewModel.output.products.asObservable()
             .bind(to: tableViewProducts.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)

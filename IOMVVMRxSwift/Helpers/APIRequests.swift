@@ -22,9 +22,9 @@ class APIRequests {
     private init(){}
     
     func get(requestURL: String, callBack:@escaping ((Error?, Data?)->Void)) {
-        guard let categoryUrl = URL(string: requestURL) else { return }
+        guard let url = URL(string: requestURL) else { return }
         
-        let request = NSMutableURLRequest(url: categoryUrl as URL)
+        let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("v2", forHTTPHeaderField: "version")
