@@ -13,20 +13,27 @@ import RxSwift
 
 protocol ProductsInteractorProtocol {
     func getProducts() -> Observable<[SectionOfProducts]>
-    func getNextProducts() -> Observable<[SectionOfProducts]>
+    func getNextProducts(page: Int) -> Observable<[SectionOfProducts]>
 }
 
 final class ProductsInteractor: ProductsInteractorProtocol {
     
+    var nextURLString: String?
+    
+    /// Sending a post request to get products
+    ///
+    /// - Returns: Array structured according to RxDataSources requirement
     func getProducts() -> Observable<[SectionOfProducts]> {
         var products: [ProductModel]?
         let requestData = ProductsRQM(categoryId: 0, subCategoryId: 0, typeId: 0, customerId: "11")
-        
-        return Observable.create { (observer) -> Disposable in
+        return Observable.create { [weak self] (observer) -> Disposable in
             APIRequests.shared.post(requestModel: requestData, requestPath: .requestProducts) { (error, data) in
                 let jsonDecoder = JSONDecoder()
                 let responseModel = try? jsonDecoder.decode(ProductsBase.self, from: data!)
+                
+                // Products from the api are stored in products variable
                 products = responseModel?.data?.item
+                self?.nextURLString = responseModel?.data?.links?[0].href
                 let section = [SectionOfProducts(header: "", items: products ?? [])]
                 observer.onNext(section)
                 observer.onCompleted()
@@ -35,18 +42,30 @@ final class ProductsInteractor: ProductsInteractorProtocol {
         }
     }
     
-    func getNextProducts() -> Observable<[SectionOfProducts]> {
+    /// Sending a get request to get products
+    ///
+    /// - Returns: Array structured according to RxDataSources requirement
+    func getNextProducts(page: Int) -> Observable<[SectionOfProducts]> {
         var products: [ProductModel]?
-        let requestData = ProductsRQM(categoryId: 0, subCategoryId: 0, typeId: 0, customerId: "11")
-        
-        return Observable.create { (observer) -> Disposable in
-            APIRequests.shared.post(requestModel: requestData, requestPath: .requestProducts) { (error, data) in
-                let jsonDecoder = JSONDecoder()
-                let responseModel = try? jsonDecoder.decode(ProductsBase.self, from: data!)
-                products = responseModel?.data?.item
-                let section = [SectionOfProducts(header: "", items: products ?? [])]
-                observer.onNext(section)
-                observer.onCompleted()
+        return Observable.create { [weak self] (observer) -> Disposable in
+            if self?.nextURLString != nil {
+                APIRequests.shared.get(requestURL: self?.nextURLString ?? "", callBack: { (error, data) in
+                    let jsonDecoder = JSONDecoder()
+                    let responseModel = try? jsonDecoder.decode(ProductsBase.self, from: data!)
+                    
+                    // Products from the api are stored in products variable
+                    products = responseModel?.data?.item
+                    
+                    // If true then nextPage is available else not
+                    if responseModel?.data?.links?[0].rel != "previousPage" {
+                        self?.nextURLString = responseModel?.data?.links?[0].href
+                    } else { // Else assigning nextURLString to nil to prevent unnecessary api call
+                        self?.nextURLString = nil
+                    }
+                    let section = [SectionOfProducts(header: "", items: products ?? [])]
+                    observer.onNext(section)
+                    observer.onCompleted()
+                })
             }
             return Disposables.create {}
         }

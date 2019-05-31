@@ -13,6 +13,7 @@ target 'IOMVVMRxSwift' do
   target 'IOMVVMRxSwiftTests' do
     inherit! :search_paths
     # Pods for testing
+	pod 'RxTest'
   end
 
   target 'IOMVVMRxSwiftUITests' do

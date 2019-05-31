@@ -16,6 +16,7 @@ class ProductsVC: UIViewController, ControllerType {
     
     // MARK:- Outlets
     @IBOutlet weak var tableViewProducts: UITableView!
+    private let refreshControl = UIRefreshControl()
     
     // MARK:- Class Properties
     var viewModel:  ProductsViewModel!
@@ -31,10 +32,19 @@ class ProductsVC: UIViewController, ControllerType {
     
     // MARK:- Custom Methods
     private func prepareUI() {
+        // registering cells with table
         tableViewProducts.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
+        
+        // Preparing refreshcontrol
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        if #available(iOS 10.0, *) {
+            tableViewProducts.refreshControl = refreshControl
+        } else {
+            tableViewProducts.addSubview(refreshControl)
+        }
     }
     
-    // MARK:- MVVM Binding Methods
+    // MARK:- MVVM Binding Method
     func configure(with viewModel: ViewModelType) {
         // DataSource implementation
         let dataSource = RxTableViewSectionedReloadDataSource<SectionOfProducts>(
@@ -44,9 +54,9 @@ class ProductsVC: UIViewController, ControllerType {
                 
                 // Binding Cell item with viewModel's input
                 cell.buttonLike.rx.tap
-                .map{_ in item}
-                .bind(to: self.viewModel.input.likedProduct)
-                .disposed(by: cell.disposeBag)
+                    .map{_ in item}
+                    .bind(to: self.viewModel.input.likedProduct)
+                    .disposed(by: cell.disposeBag)
                 
                 return cell
         })
@@ -54,10 +64,15 @@ class ProductsVC: UIViewController, ControllerType {
         
         // Binding reachedBottom trigger with viewModel's input for pagination of products
         tableViewProducts.rx.reachedBottom.asObservable()
-        .bind(to: viewModel.input.loadAfterTrigger)
-        .disposed(by: disposeBag)
+            .bind(to: viewModel.input.nextPageTrigger)
+            .disposed(by: disposeBag)
         
-        // Binding outp
+        // Bind refresh control to viewModel
+        refreshControl.rx.controlEvent(.valueChanged)
+            .bind(to: self.viewModel.input.refreshTrigger)
+            .disposed(by: disposeBag)
+        
+        // Binding viewModel's output's products with tableview items
         viewModel.output.products.asObservable()
             .bind(to: tableViewProducts.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
@@ -72,3 +87,4 @@ extension ProductsVC {
         return controller
     }
 }
+

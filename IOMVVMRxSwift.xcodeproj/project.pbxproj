@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		4F950E46F43295FBCEE57E4F /* Pods_IOMVVMRxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B1B1C98798A73CEAC29BDB /* Pods_IOMVVMRxSwiftTests.framework */; };
 		A4B709B41D3A9E648CDE4DE1 /* Pods_IOMVVMRxSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A77BB58B9A1DFFDFBD7604 /* Pods_IOMVVMRxSwiftUITests.framework */; };
+		A87EB22922A103D0002B955E /* PaginationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87EB22822A103D0002B955E /* PaginationViewModel.swift */; };
+		A87EB22B22A1040F002B955E /* PaginationNetworkingLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87EB22A22A1040F002B955E /* PaginationNetworkingLogicTests.swift */; };
 		A8849C79229FD27E00A232D2 /* ReactX.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8849C78229FD27E00A232D2 /* ReactX.swift */; };
 		A8849C7B229FEFEF00A232D2 /* APIProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8849C7A229FEFEF00A232D2 /* APIProtocols.swift */; };
 		A8A00125229E5B1F00542873 /* ProductsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A00124229E5B1F00542873 /* ProductsInteractor.swift */; };
 		A8A00127229E5F9F00542873 /* WindowsX.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A00126229E5F9F00542873 /* WindowsX.swift */; };
 		A8A0012A229EB51100542873 /* APIRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A00129229EB51100542873 /* APIRequests.swift */; };
 		B1166F332297B6F900C424ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1166F322297B6F900C424ED /* AppDelegate.swift */; };
-		B1166F352297B6F900C424ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1166F342297B6F900C424ED /* ViewController.swift */; };
 		B1166F382297B6F900C424ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1166F362297B6F900C424ED /* Main.storyboard */; };
 		B1166F3A2297B6FB00C424ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1166F392297B6FB00C424ED /* Assets.xcassets */; };
 		B1166F3D2297B6FB00C424ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1166F3B2297B6FB00C424ED /* LaunchScreen.storyboard */; };
@@ -54,6 +55,8 @@
 		72A77BB58B9A1DFFDFBD7604 /* Pods_IOMVVMRxSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOMVVMRxSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		820A6E9FC0732F6ACA5048AA /* Pods-IOMVVMRxSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOMVVMRxSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOMVVMRxSwift/Pods-IOMVVMRxSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		91B1B1C98798A73CEAC29BDB /* Pods_IOMVVMRxSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOMVVMRxSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A87EB22822A103D0002B955E /* PaginationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationViewModel.swift; sourceTree = "<group>"; };
+		A87EB22A22A1040F002B955E /* PaginationNetworkingLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationNetworkingLogicTests.swift; sourceTree = "<group>"; };
 		A8849C78229FD27E00A232D2 /* ReactX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactX.swift; sourceTree = "<group>"; };
 		A8849C7A229FEFEF00A232D2 /* APIProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProtocols.swift; sourceTree = "<group>"; };
 		A8A00124229E5B1F00542873 /* ProductsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsInteractor.swift; sourceTree = "<group>"; };
@@ -61,7 +64,6 @@
 		A8A00129229EB51100542873 /* APIRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequests.swift; sourceTree = "<group>"; };
 		B1166F2F2297B6F900C424ED /* IOMVVMRxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOMVVMRxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1166F322297B6F900C424ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B1166F342297B6F900C424ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B1166F372297B6F900C424ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B1166F392297B6FB00C424ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1166F3C2297B6FB00C424ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				B1166F472297B6FB00C424ED /* IOMVVMRxSwiftTests.swift */,
 				B1166F492297B6FB00C424ED /* Info.plist */,
+				A87EB22A22A1040F002B955E /* PaginationNetworkingLogicTests.swift */,
 			);
 			path = IOMVVMRxSwiftTests;
 			sourceTree = "<group>";
@@ -196,7 +199,6 @@
 			children = (
 				B1166F622297B75E00C424ED /* ProductsVC */,
 				B1166F362297B6F900C424ED /* Main.storyboard */,
-				B1166F342297B6F900C424ED /* ViewController.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				B1166F6A2297B9EF00C424ED /* MVVMProtocols.swift */,
+				A87EB22822A103D0002B955E /* PaginationViewModel.swift */,
 			);
 			path = MVVMBase;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				B1166F3F2297B6FB00C424ED /* Sources */,
 				B1166F402297B6FB00C424ED /* Frameworks */,
 				B1166F412297B6FB00C424ED /* Resources */,
+				2573621BAC917762D1C8D14E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -388,6 +392,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2573621BAC917762D1C8D14E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IOMVVMRxSwiftTests/Pods-IOMVVMRxSwiftTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IOMVVMRxSwiftTests/Pods-IOMVVMRxSwiftTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IOMVVMRxSwiftTests/Pods-IOMVVMRxSwiftTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		434ADDC46FD5A9025ADFBF5C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -467,7 +488,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8849C7B229FEFEF00A232D2 /* APIProtocols.swift in Sources */,
-				B1166F352297B6F900C424ED /* ViewController.swift in Sources */,
 				B1166F682297B80300C424ED /* ProductsModel.swift in Sources */,
 				A8A0012A229EB51100542873 /* APIRequests.swift in Sources */,
 				A8A00125229E5B1F00542873 /* ProductsInteractor.swift in Sources */,
@@ -478,6 +498,7 @@
 				B1166F6F2297BA7300C424ED /* ProductCell.swift in Sources */,
 				A8A00127229E5F9F00542873 /* WindowsX.swift in Sources */,
 				B1166F6B2297B9EF00C424ED /* MVVMProtocols.swift in Sources */,
+				A87EB22922A103D0002B955E /* PaginationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A87EB22B22A1040F002B955E /* PaginationNetworkingLogicTests.swift in Sources */,
 				B1166F482297B6FB00C424ED /* IOMVVMRxSwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
