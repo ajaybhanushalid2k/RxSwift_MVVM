@@ -18,7 +18,7 @@ protocol ProductsInteractorProtocol {
 
 final class ProductsInteractor: ProductsInteractorProtocol {
     
-    var nextURLString: String?
+    var nextURLString: String = ""
     
     /// Sending a post request to get products
     ///
@@ -33,7 +33,7 @@ final class ProductsInteractor: ProductsInteractorProtocol {
                 
                 // Products from the api are stored in products variable
                 products = responseModel?.data?.item
-                self?.nextURLString = responseModel?.data?.links?[0].href
+                self?.nextURLString = responseModel?.data?.links?[0].href ?? ""
                 let section = [SectionOfProducts(header: "", items: products ?? [])]
                 observer.onNext(section)
                 observer.onCompleted()
@@ -48,7 +48,7 @@ final class ProductsInteractor: ProductsInteractorProtocol {
     func getNextProducts(page: Int) -> Observable<[SectionOfProducts]> {
         var products: [ProductModel]?
         return Observable.create { [weak self] (observer) -> Disposable in
-            if self?.nextURLString != nil {
+            if self?.nextURLString != "" {
                 APIRequests.shared.get(requestURL: self?.nextURLString ?? "", callBack: { (error, data) in
                     let jsonDecoder = JSONDecoder()
                     let responseModel = try? jsonDecoder.decode(ProductsBase.self, from: data!)
@@ -58,9 +58,9 @@ final class ProductsInteractor: ProductsInteractorProtocol {
                     
                     // If true then nextPage is available else not
                     if responseModel?.data?.links?[0].rel != "previousPage" {
-                        self?.nextURLString = responseModel?.data?.links?[0].href
+                        self?.nextURLString = responseModel?.data?.links?[0].href ?? ""
                     } else { // Else assigning nextURLString to nil to prevent unnecessary api call
-                        self?.nextURLString = nil
+                        self?.nextURLString = ""
                     }
                     let section = [SectionOfProducts(header: "", items: products ?? [])]
                     observer.onNext(section)

@@ -9,10 +9,10 @@
 import Foundation
 import RxSwift
 
-protocol APIRequest {
-    var method: RequestType { get }
-    var path: String { get }
-    var parameters: [String : String] { get }
+struct APIRequest {
+    var method: RequestType
+    var path: String
+    var parameters: Codable?
 }
 
 public enum RequestType: String {
@@ -21,12 +21,8 @@ public enum RequestType: String {
 
 extension APIRequest {
     func request(with baseURL: URL) -> URLRequest {
-        guard var components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false) else {
+        guard let components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false) else {
             fatalError("Unable to create URL components")
-        }
-        
-        components.queryItems = parameters.map {
-            URLQueryItem(name: String($0), value: String($1))
         }
         
         guard let url = components.url else {
@@ -35,6 +31,17 @@ extension APIRequest {
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
+        if let parameters = parameters {
+            let requestJSON = try? parameters.encode()
+            request.httpBody = requestJSON!
+        }
+        
+        var headers = request.allHTTPHeaderFields ?? [:]
+        headers["Content-Type"] = "application/json"
+        headers["version"] = "v2"
+        
+        request.allHTTPHeaderFields = headers
+        
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         return request
     }
