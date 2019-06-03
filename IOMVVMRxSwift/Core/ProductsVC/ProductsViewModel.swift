@@ -36,10 +36,11 @@ class ProductsViewModel: ViewModelProtocol {
         input = Input(likedProduct: likedProductSubject.asObserver(),
                       refreshTrigger: refreshTriggerSubject.asObserver(),
                       nextPageTrigger: loadAfterTriggerSubject.asObserver())
+        
         //>>>>>>>>>> Please review my code from here
         // When ViewModel initializes products are requested from the Interactor
         var products = interactor.getProducts()
-        
+        _ = interactor.getProductBase()
         // Detect when like button is tapped in the ViewController's tableView's cell
         likedProductSubject.subscribe ({ (event) in
             print("\(String(describing: event.element?.productName))")

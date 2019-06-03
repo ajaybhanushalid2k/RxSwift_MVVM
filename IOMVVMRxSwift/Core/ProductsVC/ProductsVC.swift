@@ -48,14 +48,14 @@ class ProductsVC: UIViewController, ControllerType {
     func configure(with viewModel: ViewModelType) {
         // DataSource implementation
         let dataSource = RxTableViewSectionedReloadDataSource<SectionOfProducts>(
-            configureCell: { dataSource, tableView, indexPath, item in
+            configureCell: { [weak self] dataSource, tableView, indexPath, item in
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
                 cell.prepareCell(with: item)
                 
                 // Binding Cell item with viewModel's input
                 cell.buttonLike.rx.tap
                     .map{_ in item}
-                    .bind(to: self.viewModel.input.likedProduct)
+                    .bind(to: (self?.viewModel.input.likedProduct)!)
                     .disposed(by: cell.disposeBag)
                 
                 return cell

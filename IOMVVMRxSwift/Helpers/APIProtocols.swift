@@ -54,6 +54,13 @@ class APIClient {
         return Observable<T>.create { observer in
             let request = apiRequest.request(with: self.baseURL)
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let data = data, let utf8Representation = String(data: data, encoding: .utf8) {
+                    print("response: ", utf8Representation)
+                } else {
+                    print("no readable data received in response")
+                }
+                
                 do {
                     let model: T = try JSONDecoder().decode(T.self, from: data ?? Data())
                     observer.onNext(model)
