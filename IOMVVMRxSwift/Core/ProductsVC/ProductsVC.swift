@@ -46,6 +46,7 @@ class ProductsVC: UIViewController, ControllerType {
     
     // MARK:- MVVM Binding Method
     func configure(with viewModel: ViewModelType) {
+        
         // DataSource implementation
         let dataSource = RxTableViewSectionedReloadDataSource<SectionOfProducts>(
             configureCell: { [weak self] dataSource, tableView, indexPath, item in

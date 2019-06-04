@@ -15,10 +15,6 @@ enum APIConstants: String {
     case requestProducts = "Product/InStock"
 }
 
-struct AppRequests {
-    
-}
-
 class APIRequests {
     
     static let shared = APIRequests()

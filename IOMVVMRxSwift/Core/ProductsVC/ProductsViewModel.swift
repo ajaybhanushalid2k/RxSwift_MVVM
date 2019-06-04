@@ -32,7 +32,7 @@ class ProductsViewModel: ViewModelProtocol {
     private let loadAfterTriggerSubject = PublishSubject<Void>()
     
     init(_ interactor: ProductsInteractorProtocol) {
-        // Init Output
+        // Init Input
         input = Input(likedProduct: likedProductSubject.asObserver(),
                       refreshTrigger: refreshTriggerSubject.asObserver(),
                       nextPageTrigger: loadAfterTriggerSubject.asObserver())
@@ -41,6 +41,7 @@ class ProductsViewModel: ViewModelProtocol {
         // When ViewModel initializes products are requested from the Interactor
         var products = interactor.getProducts()
         _ = interactor.getProductBase()
+        
         // Detect when like button is tapped in the ViewController's tableView's cell
         likedProductSubject.subscribe ({ (event) in
             print("\(String(describing: event.element?.productName))")

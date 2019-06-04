@@ -14,13 +14,12 @@ import RxSwift
 protocol ProductsInteractorProtocol {
     func getProducts() -> Observable<[SectionOfProducts]>
     func getNextProducts(page: Int) -> Observable<[SectionOfProducts]>
-    func getProductBase() -> Observable<[ProductsBase]>
+    func getProductBase() -> Observable<ProductsBase>
 }
 
 final class ProductsInteractor: ProductsInteractorProtocol {
     
     var nextURLString: String = ""
-    private let apiClient = APIClient()
     /// Sending a post request to get products
     ///
     /// - Returns: Array structured according to RxDataSources requirement
@@ -43,7 +42,8 @@ final class ProductsInteractor: ProductsInteractorProtocol {
         }
     }
     
-    func getProductBase() -> Observable<[ProductsBase]> {
+    func getProductBase() -> Observable<ProductsBase> {
+        let apiClient = APIClient()
         let requestData = ProductsRQM(categoryId: 0, subCategoryId: 0, typeId: 0, customerId: "11")
         let productsRequest = APIRequest(method: .POST, path: APIConstants.requestProducts.rawValue, parameters: requestData)
         return apiClient.send(apiRequest: productsRequest)

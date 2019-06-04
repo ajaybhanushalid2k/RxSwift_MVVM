@@ -48,6 +48,7 @@ extension APIRequest {
 }
 
 class APIClient {
+    
     private let baseURL = URL(string: APIConstants.domain.rawValue)!
     
     func send<T: Codable>(apiRequest: APIRequest) -> Observable<T> {
