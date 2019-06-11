@@ -19,7 +19,7 @@ class ProductsViewModel: ViewModelProtocol {
     
     // products are provided as output show on ViewController
     struct Output {
-        let products: Driver<[SectionOfProducts]>
+        let products: Driver<[ProductModel]>
     }
     
     let input: Input
@@ -37,26 +37,14 @@ class ProductsViewModel: ViewModelProtocol {
                       refreshTrigger: refreshTriggerSubject.asObserver(),
                       nextPageTrigger: loadAfterTriggerSubject.asObserver())
         
-        //>>>>>>>>>> Please review my code from here
-        // When ViewModel initializes products are requested from the Interactor
-        var products = interactor.getProducts()
-        _ = interactor.getProductBase()
+        var products = interactor.getProductBase().subscribe { (event) in
+            let mproducts = event.element?.data?.dimProductList
+//            output = Output(products: mproducts.)
+//            output = Output(products: )
+        }
         
-        // Detect when like button is tapped in the ViewController's tableView's cell
-        likedProductSubject.subscribe ({ (event) in
-            print("\(String(describing: event.element?.productName))")
-        }).disposed(by: disposeBag)
-        
-        // To get next gage data I have used danielt1263/PaginationNetworkLogic.swift: Link: https://gist.github.com/danielt1263/10bc5eb821c752ad45f281c6f4e3034b
-        let source = PaginationUISource(refresh: refreshTriggerSubject.asObservable(), loadNextPage: loadAfterTriggerSubject.asObservable(), bag: disposeBag)
-        let sink = PaginationSink(ui: source, loadData: interactor.getNextProducts(page:))
-        
-        // Concat new products with the previous products
-        let newProducts = sink.elements.asObservable()
-        products = Observable.concat([products, newProducts]).scan([], accumulator: +)
-        //<<<<<<<<<<<< Till here
         
         // Init Output
-        output = Output(products: products.asDriver(onErrorJustReturn: []))
+//        output = Output(products: products.asDriver(onErrorJustReturn: <#T##ProductsBase#>))
     }
 }
