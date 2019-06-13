@@ -54,8 +54,8 @@ class APIClient {
     func send<T: Codable>(apiRequest: APIRequest) -> Observable<T> {
         return Observable<T>.create { observer in
             let request = apiRequest.request(with: self.baseURL)
+            
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                
                 if let data = data, let utf8Representation = String(data: data, encoding: .utf8) {
                     print("response: ", utf8Representation)
                 } else {

@@ -63,20 +63,41 @@ class ProductsVC: UIViewController, ControllerType {
         })
         self.dataSource = dataSource
         
-        // Binding reachedBottom trigger with viewModel's input for pagination of products
-        tableViewProducts.rx.reachedBottom.asObservable()
-            .bind(to: viewModel.input.nextPageTrigger)
-            .disposed(by: disposeBag)
+//        // Binding reachedBottom trigger with viewModel's input for pagination of products
+//        tableViewProducts.rx.reachedBottom.asObservable()
+//            .bind(to: viewModel.input.nextPageTrigger)
+//            .disposed(by: disposeBag)
         
-        // Bind refresh control to viewModel
-        refreshControl.rx.controlEvent(.valueChanged)
+//        // Bind refresh control to viewModel
+//        refreshControl.rx.controlEvent(.valueChanged)
+//            .bind(to: self.viewModel.input.refreshTrigger)
+//            .disposed(by: disposeBag)
+        
+        
+        let viewWillAppear = rx.sentMessage(#selector(UIViewController.viewWillAppear(_:))).map({_ in})
+        
+        let rxc = refreshControl.rx.controlEvent(.valueChanged).asObservable()
+        
+        Observable.of(viewWillAppear, rxc).merge()
             .bind(to: self.viewModel.input.refreshTrigger)
             .disposed(by: disposeBag)
         
         // Binding viewModel's output's products with tableview items
-        viewModel.output.products.asObservable()
-            .bind(to: tableViewProducts.rx.items(dataSource: dataSource))
+        viewModel.output.products
+        .drive(tableViewProducts.rx.items(dataSource: dataSource))
+        .disposed(by: disposeBag)
+
+        viewModel.output.error.asObservable()
+            .observeOn(MainScheduler())
+            .subscribe(onNext: { self.showAlert(with: $0) })
             .disposed(by: disposeBag)
+    }
+    
+    private func showAlert(with clientAPIError: Error) {
+        let okAlertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let alertViewController = UIAlertController(title: "Something went wrong", message: clientAPIError.localizedDescription, preferredStyle: .alert)
+        alertViewController.addAction(okAlertAction)
+        present(alertViewController, animated: true, completion: nil)
     }
 }
 
