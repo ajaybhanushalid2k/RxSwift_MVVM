@@ -63,15 +63,11 @@ class ProductsVC: UIViewController, ControllerType {
         })
         self.dataSource = dataSource
         
-//        // Binding reachedBottom trigger with viewModel's input for pagination of products
-//        tableViewProducts.rx.reachedBottom.asObservable()
-//            .bind(to: viewModel.input.nextPageTrigger)
-//            .disposed(by: disposeBag)
+        // Binding reachedBottom trigger with viewModel's input for pagination of products
+        tableViewProducts.rx.reachedBottom.asObservable()
+            .bind(to: viewModel.input.nextPageTrigger)
+            .disposed(by: disposeBag)
         
-//        // Bind refresh control to viewModel
-//        refreshControl.rx.controlEvent(.valueChanged)
-//            .bind(to: self.viewModel.input.refreshTrigger)
-//            .disposed(by: disposeBag)
         
         
         let viewWillAppear = rx.sentMessage(#selector(UIViewController.viewWillAppear(_:))).map({_ in})
@@ -84,13 +80,30 @@ class ProductsVC: UIViewController, ControllerType {
         
         // Binding viewModel's output's products with tableview items
         viewModel.output.products
-        .drive(tableViewProducts.rx.items(dataSource: dataSource))
-        .disposed(by: disposeBag)
-
-        viewModel.output.error.asObservable()
-            .observeOn(MainScheduler())
-            .subscribe(onNext: { self.showAlert(with: $0) })
+            .drive(tableViewProducts.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        viewModel.output.endRefreshing
+            .drive(onNext: { [weak self] in
+                if self?.refreshControl.isRefreshing == true {
+                    self?.refreshControl.endRefreshing()
+                    self?.tableViewProducts.contentOffset = CGPoint.zero
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.output.errorMessage.drive(onNext: { [weak self] (rangila) in
+            self?.showAlertMessage(with: rangila)
+        })
+            .disposed(by: disposeBag)
+    }
+    
+    private func showAlertMessage(with clientAPIError: String) {
+        
+        let okAlertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let alertViewController = UIAlertController(title: "Something went wrong", message: clientAPIError, preferredStyle: .alert)
+        alertViewController.addAction(okAlertAction)
+        present(alertViewController, animated: true, completion: nil)
     }
     
     private func showAlert(with clientAPIError: Error) {
@@ -98,6 +111,7 @@ class ProductsVC: UIViewController, ControllerType {
         let alertViewController = UIAlertController(title: "Something went wrong", message: clientAPIError.localizedDescription, preferredStyle: .alert)
         alertViewController.addAction(okAlertAction)
         present(alertViewController, animated: true, completion: nil)
+        
     }
 }
 

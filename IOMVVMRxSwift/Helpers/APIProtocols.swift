@@ -21,7 +21,7 @@ public enum RequestType: String {
 
 extension APIRequest {
     func request(with baseURL: URL) -> URLRequest {
-        guard let components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false) else {
+        guard let components = URLComponents(url: path.contains("http") ? URL(string: path)! : baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false) else {
             fatalError("Unable to create URL components")
         }
         

@@ -63,7 +63,7 @@ class APIRequests {
                 return
             }
             if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
-//                print("response: ", utf8Representation)
+                print("response: ", utf8Representation)
                 callBack(nil, data)
             } else {
                 print("no readable data received in response")

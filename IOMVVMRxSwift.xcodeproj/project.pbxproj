@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F950E46F43295FBCEE57E4F /* Pods_IOMVVMRxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B1B1C98798A73CEAC29BDB /* Pods_IOMVVMRxSwiftTests.framework */; };
 		A4B709B41D3A9E648CDE4DE1 /* Pods_IOMVVMRxSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A77BB58B9A1DFFDFBD7604 /* Pods_IOMVVMRxSwiftUITests.framework */; };
+		A81BB78D22B37DF30091D4D5 /* AsDriverLogError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81BB78C22B37DF20091D4D5 /* AsDriverLogError.swift */; };
 		A87EB22922A103D0002B955E /* PaginationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87EB22822A103D0002B955E /* PaginationViewModel.swift */; };
 		A87EB22B22A1040F002B955E /* PaginationNetworkingLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87EB22A22A1040F002B955E /* PaginationNetworkingLogicTests.swift */; };
 		A8849C79229FD27E00A232D2 /* ReactX.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8849C78229FD27E00A232D2 /* ReactX.swift */; };
@@ -55,6 +56,7 @@
 		72A77BB58B9A1DFFDFBD7604 /* Pods_IOMVVMRxSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOMVVMRxSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		820A6E9FC0732F6ACA5048AA /* Pods-IOMVVMRxSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOMVVMRxSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOMVVMRxSwift/Pods-IOMVVMRxSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		91B1B1C98798A73CEAC29BDB /* Pods_IOMVVMRxSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOMVVMRxSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A81BB78C22B37DF20091D4D5 /* AsDriverLogError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsDriverLogError.swift; sourceTree = "<group>"; };
 		A87EB22822A103D0002B955E /* PaginationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationViewModel.swift; sourceTree = "<group>"; };
 		A87EB22A22A1040F002B955E /* PaginationNetworkingLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationNetworkingLogicTests.swift; sourceTree = "<group>"; };
 		A8849C78229FD27E00A232D2 /* ReactX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactX.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		A8849C77229FD26400A232D2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A81BB78C22B37DF20091D4D5 /* AsDriverLogError.swift */,
 				A8849C78229FD27E00A232D2 /* ReactX.swift */,
 			);
 			path = Extensions;
@@ -491,6 +494,7 @@
 				B1166F682297B80300C424ED /* ProductsModel.swift in Sources */,
 				A8A0012A229EB51100542873 /* APIRequests.swift in Sources */,
 				A8A00125229E5B1F00542873 /* ProductsInteractor.swift in Sources */,
+				A81BB78D22B37DF30091D4D5 /* AsDriverLogError.swift in Sources */,
 				B1166F332297B6F900C424ED /* AppDelegate.swift in Sources */,
 				A8849C79229FD27E00A232D2 /* ReactX.swift in Sources */,
 				B1166F662297B7F700C424ED /* ProductsViewModel.swift in Sources */,

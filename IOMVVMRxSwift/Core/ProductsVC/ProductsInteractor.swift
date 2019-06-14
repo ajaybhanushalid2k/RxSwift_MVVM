@@ -7,12 +7,11 @@
 //
 
 import Foundation
-
-import Foundation
 import RxSwift
 
 protocol ProductsInteractorProtocol {
     func getProductBase() -> Observable<ProductsBase>
+    func getNextProductBase(pageURL: String) -> Observable<ProductsBase>
 }
 
 final class ProductsInteractor: ProductsInteractorProtocol {
@@ -22,7 +21,10 @@ final class ProductsInteractor: ProductsInteractorProtocol {
         let productsRequest = APIRequest(method: .POST, path: APIConstants.requestProducts.rawValue, parameters: requestData)
         return apiClient.send(apiRequest: productsRequest)
     }
+    
+    func getNextProductBase(pageURL: String) -> Observable<ProductsBase> {
+        let apiClient = APIClient()
+        let productsRequest = APIRequest(method: .GET, path: pageURL, parameters: nil)
+        return apiClient.send(apiRequest: productsRequest)
+    }
 }
-
-
-
