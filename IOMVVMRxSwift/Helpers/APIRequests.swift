@@ -13,6 +13,7 @@ import RxCocoa
 enum APIConstants: String {
     case domain          = "http://219.90.67.69:8011/OrderManagement_API/api/"
     case requestProducts = "Product/InStock"
+    case sampleNextPageURL = "http://219.90.67.69:8011/OrderManagement_API/api/Product/InStock?PageNumber=2&PageSize=20&CustomerId=11&CategoryId=0&SubCategoryId=0&version=v2&TypeId=0&pincode="
 }
 
 class APIRequests {

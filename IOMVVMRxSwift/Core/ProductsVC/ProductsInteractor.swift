@@ -12,6 +12,7 @@ import RxSwift
 protocol ProductsInteractorProtocol {
     func getProductBase() -> Observable<ProductsBase>
     func getNextProductBase(pageURL: String) -> Observable<ProductsBase>
+    func like(product: String, favorite: Bool) -> Observable<Bool>
 }
 
 final class ProductsInteractor: ProductsInteractorProtocol {
@@ -26,5 +27,9 @@ final class ProductsInteractor: ProductsInteractorProtocol {
         let apiClient = APIClient()
         let productsRequest = APIRequest(method: .GET, path: pageURL, parameters: nil)
         return apiClient.send(apiRequest: productsRequest)
+    }
+    
+    func like(product: String, favorite: Bool) -> Observable<Bool> {
+        return Observable.of(true)
     }
 }

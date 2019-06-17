@@ -55,7 +55,8 @@ class ProductsVC: UIViewController, ControllerType {
                 
                 // Binding Cell item with viewModel's input
                 cell.buttonLike.rx.tap
-                    .map{_ in item}
+                    //                    .map{_ in item}
+                    .map{_ in item.id!}
                     .bind(to: (self?.viewModel.input.likedProduct)!)
                     .disposed(by: cell.disposeBag)
                 
@@ -64,9 +65,9 @@ class ProductsVC: UIViewController, ControllerType {
         self.dataSource = dataSource
         
         // Binding reachedBottom trigger with viewModel's input for pagination of products
-//        tableViewProducts.rx.reachedBottom.asObservable()
-//            .bind(to: viewModel.input.nextPageTrigger)
-//            .disposed(by: disposeBag)
+        tableViewProducts.rx.reachedBottom.asObservable()
+            .bind(to: viewModel.input.nextPageTrigger)
+            .disposed(by: disposeBag)
         
         
         
@@ -93,7 +94,12 @@ class ProductsVC: UIViewController, ControllerType {
             .disposed(by: disposeBag)
         
         viewModel.output.errorMessage.drive(onNext: { [weak self] (rangila) in
-            self?.showAlertMessage(with: rangila)
+                self?.showAlertMessage(with: rangila)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.output.liked.drive(onNext: { [weak self] (rangila) in
+            self?.showAlertMessage(with: rangila.description)
         })
             .disposed(by: disposeBag)
     }
